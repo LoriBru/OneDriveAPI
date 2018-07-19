@@ -151,7 +151,8 @@ namespace KoenZomers.OneDrive.Api
 
             // Get the querystring parameters from the URL
             var queryString = url.Remove(0, AuthenticationRedirectUrl.Length + 1);
-            var queryStringParams = HttpUtility.ParseQueryString(queryString);
+            //var queryStringParams = HttpUtility.ParseQueryString(queryString);
+            Dictionary<string, string> queryStringParams = queryString.Split('&').ToDictionary(c => c.Split('=')[0], c => Uri.UnescapeDataString(c.Split('=')[1]));
 
             AuthorizationToken = queryStringParams["code"];
             return AuthorizationToken;
